@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+import { CreatePlayerDto, player } from '../dto/players.dto';
 
 @Injectable()
 export class PlayersService {
@@ -9,5 +10,14 @@ export class PlayersService {
 
   getPlayers(): any {
     return this.players;
+  }
+
+  createPlayer(playerData: CreatePlayerDto): player {
+    const newPlayer = {
+      id: this.players.length + 1,
+      ...playerData,
+    };
+    this.players.push(newPlayer);
+    return newPlayer;
   }
 }

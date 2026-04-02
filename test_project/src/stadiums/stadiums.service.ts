@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+import { CreateStadiumDto, stadium } from '../dto/stadiums.dto';
 
 @Injectable()
 export class StadiumsService {
@@ -9,5 +10,14 @@ export class StadiumsService {
 
   getStadiums(): any {
     return this.stadiums;
+  }
+
+  createStadium(stadiumData: CreateStadiumDto): stadium {
+    const newStadium = {
+      id: this.stadiums.length + 1,
+      ...stadiumData,
+    };
+    this.stadiums.push(newStadium);
+    return newStadium;
   }
 }
