@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { StadiumsService } from './stadiums.service';
 import { CreateStadiumDto } from '../dto/stadiums.dto';
 
@@ -9,6 +9,11 @@ export class StadiumsController {
   @Get()
   getStadiums(): any {
     return this.stadiumsService.getStadiums();
+  }
+
+  @Get(':id')
+  getStadiumById(@Param('id') id: string): any {
+    return this.stadiumsService.getStadiumById(id);
   }
 
   @Post()

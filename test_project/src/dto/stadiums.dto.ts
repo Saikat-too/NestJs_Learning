@@ -20,3 +20,15 @@ export class CreateStadiumDto {
     this.Location = Location;
   }
 }
+
+export class StadiumResponseDto {
+  id: number;
+  name: string;
+  Location: string;
+
+  constructor(id: number, name: string, Location: string) {
+    this.id = id;
+    this.name = name;
+    this.Location = Location;
+  }
+}

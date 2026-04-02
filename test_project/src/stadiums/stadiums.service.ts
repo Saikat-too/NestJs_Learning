@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { CreateStadiumDto, stadium } from '../dto/stadiums.dto';
+import { CreateStadiumDto, StadiumResponseDto } from '../dto/stadiums.dto';
 
 @Injectable()
 export class StadiumsService {
@@ -12,12 +12,26 @@ export class StadiumsService {
     return this.stadiums;
   }
 
-  createStadium(stadiumData: CreateStadiumDto): stadium {
+  getStadiumById(id: string): StadiumResponseDto {
+    const stadium = this.stadiums.find(
+      (stadium) => stadium.id === parseInt(id),
+    );
+    if (!stadium) {
+      throw new Error('Stadium not found');
+    }
+    return new StadiumResponseDto(stadium.id, stadium.name, stadium.Location);
+  }
+
+  createStadium(stadiumData: CreateStadiumDto): StadiumResponseDto {
     const newStadium = {
       id: this.stadiums.length + 1,
       ...stadiumData,
     };
     this.stadiums.push(newStadium);
-    return newStadium;
+    return new StadiumResponseDto(
+      newStadium.id,
+      newStadium.name,
+      newStadium.Location,
+    );
   }
 }

@@ -1,7 +1,7 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Param } from '@nestjs/common';
 import { PlayersService } from './players.service';
 import { Body, Post } from '@nestjs/common';
-import type { CreatePlayerDto } from '../dto/players.dto';
+import type { CreatePlayerDto, PlayerResponseDto } from '../dto/players.dto';
 
 @Controller('players')
 export class PlayersController {
@@ -12,8 +12,13 @@ export class PlayersController {
     return this.playerService.getPlayers();
   }
 
+  @Get(':id')
+  getPlayerById(@Param('id') id: string): PlayerResponseDto {
+    return this.playerService.getPlayerById(id);
+  }
+
   @Post()
-  createPlayer(@Body() playerData: CreatePlayerDto): CreatePlayerDto {
+  createPlayer(@Body() playerData: CreatePlayerDto): PlayerResponseDto {
     return this.playerService.createPlayer(playerData);
   }
 }
