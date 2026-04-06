@@ -1,23 +1,27 @@
 import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { StadiumsService } from './stadiums.service';
-import { CreateStadiumDto } from '../dto/stadiums.dto';
+import { CreateStadiumDto, StadiumResponseDto } from '../dto/stadiums.dto';
 
 @Controller('stadiums')
 export class StadiumsController {
   constructor(private readonly stadiumsService: StadiumsService) {}
 
   @Get()
-  getStadiums(): any {
+  async getStadiums(): Promise<StadiumResponseDto[]> {
     return this.stadiumsService.getStadiums();
   }
 
   @Get(':id')
-  getStadiumById(@Param('id') id: string): any {
-    return this.stadiumsService.getStadiumById(id);
+  async getStadiumById(
+    @Param('id') id: string,
+  ): Promise<StadiumResponseDto | null> {
+    return this.stadiumsService.getStadium({ id: parseInt(id) });
   }
 
   @Post()
-  createStadium(@Body() stadiumData: CreateStadiumDto): CreateStadiumDto {
+  async createStadium(
+    @Body() stadiumData: CreateStadiumDto,
+  ): Promise<StadiumResponseDto> {
     return this.stadiumsService.createStadium(stadiumData);
   }
 }

@@ -3,7 +3,7 @@ import { IsString, IsNotEmpty } from 'class-validator';
 export interface stadium {
   id: number;
   name: string;
-  Location: string;
+  location: string;
 }
 
 export class CreateStadiumDto {
@@ -13,22 +13,22 @@ export class CreateStadiumDto {
 
   @IsString()
   @IsNotEmpty()
-  Location: string;
+  location: string;
 
-  constructor(name: string, Location: string) {
+  constructor(name: string, location: string) {
     this.name = name;
-    this.Location = Location;
+    this.location = location;
   }
 }
 
 export class StadiumResponseDto {
   id: number;
   name: string;
-  Location: string;
+  location: string;
 
-  constructor(id: number, name: string, Location: string) {
+  constructor(id: number, name: string, location: string) {
     this.id = id;
     this.name = name;
-    this.Location = Location;
+    this.location = location;
   }
 }
